@@ -69,7 +69,6 @@ impl DeserialiseRespData for RespData {
                     Ok(i) => {
                         // Read the following number of VALUES, not chunks!!
                         let vals: VecDeque<Self> = (0..i)
-                            .into_iter()
                             .map(|_| {
                                 // Read the next value from the stream
                                 // TODO: Handle this error properly - we don't want any panics in
@@ -101,7 +100,7 @@ where
     if first_chunk.parse::<i64>() == Ok(-1) {
         RespData::NullString
     } else if let Some(second_chunk) = parse_chunk(stream) {
-        RespData::BulkStr(second_chunk.into())
+        RespData::BulkStr(second_chunk)
     } else {
         RespData::Error("Can't process bulk string".into())
     }

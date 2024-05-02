@@ -20,7 +20,7 @@ fn numerical_arg(data: Option<RespData>) -> Option<i64> {
             _ => None,
         })
         .or_else(|| {
-            let number: Option<i64> = string_arg(data).map(|s| s.parse().ok()).flatten();
+            let number: Option<i64> = string_arg(data).and_then(|s| s.parse().ok());
             number
         })
 }

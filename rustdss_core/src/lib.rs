@@ -32,7 +32,7 @@ impl Core {
                     let response = base_logic::core_logic(&mut db_state, cmd);
                     responder
                         .send(response)
-                        .expect(format!("[core::{}] can't reply to messages", db_id).as_str());
+                        .unwrap_or_else(|_| panic!("[core::{}] can't reply to messages", db_id));
                 } else {
                     println!("[core::{}] db_core died/dropped?", db_id);
                     break;
@@ -77,7 +77,7 @@ impl Core {
                 }
             }
         });
-        Self { sender: sender }
+        Self { sender }
     }
 
     pub fn get_sender(&self) -> Sender<Message> {

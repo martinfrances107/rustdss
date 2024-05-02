@@ -11,7 +11,7 @@ fn serialise_list(items: &VecDeque<RespData>) -> String {
     // optimised at some point
     let len = items.len();
 
-    let content: String = items.into_iter().map(|item| item.as_string()).collect();
+    let content: String = items.iter().map(|item| item.as_string()).collect();
 
     format!("*{}\r\n{}", len, content)
 }

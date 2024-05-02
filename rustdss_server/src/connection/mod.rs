@@ -10,7 +10,7 @@ use std::thread;
 pub struct Connection {}
 
 impl Connection {
-    fn handle_incoming_stream(core_sender: Sender<Message>, stream: &mut TcpStream) -> () {
+    fn handle_incoming_stream(core_sender: Sender<Message>, stream: &mut TcpStream) {
         // This function will create and use instances of Request
         println!("[connection], handling tcp stream from client {:?}", stream);
 

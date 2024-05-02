@@ -63,7 +63,7 @@ mod incr_should {
         let response1 = incr(&mut state, "key".into(), None);
         let response2 = incr(&mut state, "key".into(), Some(2));
 
-        assert_eq!(state.keyval.get("key".into()), Some(&RespData::Number(8)));
+        assert_eq!(state.keyval.get("key"), Some(&RespData::Number(8)));
         assert_eq!(response1, RespData::Number(6));
         assert_eq!(response2, RespData::Number(8));
     }
@@ -85,12 +85,12 @@ mod incr_should {
 
         assert_eq!(response1, RespData::Number(28));
         assert_eq!(response2, RespData::Number(30));
-        assert_eq!(state.keyval.get("key1".into()), Some(&RespData::Number(30)));
+        assert_eq!(state.keyval.get("key1"), Some(&RespData::Number(30)));
 
         assert_eq!(response3, RespData::Error("NaN".into()));
         assert_eq!(response4, RespData::Error("NaN".into()));
         assert_eq!(
-            state.keyval.get("key2".into()),
+            state.keyval.get("key2"),
             Some(&RespData::SimpleStr("not_a_number".into()))
         );
     }
@@ -106,7 +106,7 @@ mod incr_should {
 
         assert_eq!(response1, RespData::Number(1));
         assert_eq!(response2, RespData::Number(5));
-        assert_eq!(state.keyval.get("key".into()), Some(&RespData::Number(5)));
+        assert_eq!(state.keyval.get("key"), Some(&RespData::Number(5)));
     }
 }
 
@@ -124,7 +124,7 @@ mod decr_should {
         let response1 = decr(&mut state, "key".into(), None);
         let response2 = decr(&mut state, "key".into(), Some(2));
 
-        assert_eq!(state.keyval.get("key".into()), Some(&RespData::Number(2)));
+        assert_eq!(state.keyval.get("key"), Some(&RespData::Number(2)));
         assert_eq!(response1, RespData::Number(4));
         assert_eq!(response2, RespData::Number(2));
     }
@@ -146,12 +146,12 @@ mod decr_should {
 
         assert_eq!(response1, RespData::Number(26));
         assert_eq!(response2, RespData::Number(24));
-        assert_eq!(state.keyval.get("key1".into()), Some(&RespData::Number(24)));
+        assert_eq!(state.keyval.get("key1"), Some(&RespData::Number(24)));
 
         assert_eq!(response3, RespData::Error("NaN".into()));
         assert_eq!(response4, RespData::Error("NaN".into()));
         assert_eq!(
-            state.keyval.get("key2".into()),
+            state.keyval.get("key2"),
             Some(&RespData::SimpleStr("not_a_number".into()))
         );
     }
@@ -167,6 +167,6 @@ mod decr_should {
 
         assert_eq!(response1, RespData::Number(-1));
         assert_eq!(response2, RespData::Number(-5));
-        assert_eq!(state.keyval.get("key".into()), Some(&RespData::Number(-5)));
+        assert_eq!(state.keyval.get("key"), Some(&RespData::Number(-5)));
     }
 }

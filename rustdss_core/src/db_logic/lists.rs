@@ -90,7 +90,7 @@ pub fn lrange(state: &CoreState, key: &Key, start: i64, end: i64) -> RespData {
         // We want the offset from the start
         let start_offset = start_front_or_back(total, start);
         if end >= 0 {
-            (end - start_offset as i64) as usize + 1
+            (end - start_offset) as usize + 1
         } else {
             println!("debug: {}", end);
             let end_abs = start_front_or_back(total, end);
@@ -109,8 +109,7 @@ pub fn lrange(state: &CoreState, key: &Key, start: i64, end: i64) -> RespData {
                 let result: VecDeque<RespData> = inner_list
                     .iter()
                     .skip(start_front_or_back(total, start) as usize)
-                    .take(end_front_or_back(total, start, end))
-                    .map(|item| item.clone()) // ew gross - could be v expensive!
+                    .take(end_front_or_back(total, start, end)).cloned() // ew gross - could be v expensive!
                     .collect();
 
                 //
